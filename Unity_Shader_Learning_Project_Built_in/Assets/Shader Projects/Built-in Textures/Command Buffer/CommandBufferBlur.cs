@@ -1,0 +1,124 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
+
+[ExecuteInEditMode]
+[ImageEffectAllowedInSceneView]
+[RequireComponent(typeof(Camera))]
+public class CommandBufferBlur : MonoBehaviour
+{
+    Shader _Shader;
+
+    Material _Material = null;
+
+    Camera _Camera = null;
+    CommandBuffer _CommandBuffer = null;
+
+    Vector2 _ScreenResolution = Vector2.zero;
+    RenderTextureFormat _TextureFormat = RenderTextureFormat.ARGB32;
+    
+    public void Cleanup()
+    {
+        if (!Initialized)
+            return;
+        _Camera.RemoveCommandBuffer(CameraEvent.BeforeForwardAlpha, _CommandBuffer);
+        _CommandBuffer = null;
+        Object.DestroyImmediate(_Material);
+    }
+
+    public void OnEnable()
+    {
+        Cleanup();
+        Initialize();
+    }
+
+    public void OnDisable()
+    {
+        Cleanup();
+    }
+
+    public bool Initialized
+    {
+        get { return _CommandBuffer != null; }
+    }
+
+    void Initialize()
+    {
+        if (Initialized)
+            return;
+
+        if (!_Shader)
+        {
+            _Shader = Shader.Find("Zoroiscrying/CommandBuffer/Command_GaussianBlur");
+
+            if (!_Shader)
+                throw new MissingReferenceException(
+                    "Unable to find required shader \"Zoroiscrying/CommandBuffer/Command_GaussianBlur\"");
+        }
+
+        if (!_Material)
+        {
+            _Material = new Material(_Shader);
+            _Material.hideFlags = HideFlags.HideAndDontSave;
+        }
+
+        _Camera = GetComponent<Camera>();
+
+        if (_Camera.allowHDR && SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.DefaultHDR))
+            _TextureFormat = RenderTextureFormat.DefaultHDR;
+
+        _CommandBuffer = new CommandBuffer();
+        _CommandBuffer.name = "Blur screen";
+
+        int numIterations = 4;
+
+        Vector2[] sizes = {
+            new Vector2(Screen.width, Screen.height),
+            new Vector2(Screen.width / 2, Screen.height / 2),
+            new Vector2(Screen.width / 4, Screen.height / 4),
+            new Vector2(Screen.width / 8, Screen.height / 8),
+        };
+
+        //set 4 blurred screen textures into global texture variables.
+        for (int i = 0; i < numIterations; ++i)
+        {
+            int screenCopyID = Shader.PropertyToID("_ScreenCopyTexture");
+            _CommandBuffer.GetTemporaryRT(screenCopyID, -1, -1, 0, FilterMode.Bilinear, _TextureFormat);
+            //copy screen into temporary RT (currentActive represents the current scene texture)
+            _CommandBuffer.Blit(BuiltinRenderTextureType.CurrentActive, screenCopyID);
+
+            // get two smaller RTs
+            int blurredID = Shader.PropertyToID("_Grab" + i + "_Temp1");
+            int blurredID2 = Shader.PropertyToID("_Grab" + i + "_Temp2");
+            _CommandBuffer.GetTemporaryRT(blurredID, (int) sizes[i].x, (int) sizes[i].y, 0, FilterMode.Bilinear,
+                _TextureFormat);
+            _CommandBuffer.GetTemporaryRT(blurredID2, (int) sizes[i].x, (int) sizes[i].y, 0, FilterMode.Bilinear,
+                _TextureFormat);
+
+            _CommandBuffer.Blit(screenCopyID, blurredID);
+            _CommandBuffer.ReleaseTemporaryRT(screenCopyID);
+
+            //这个偏移是基于屏幕坐标的，计算出的offset是两个像素点的大小
+            _CommandBuffer.SetGlobalVector("_offsets", new Vector4(2.0f / sizes[i].x, 0, 0, 0));
+            _CommandBuffer.Blit(blurredID, blurredID2, _Material);
+            _CommandBuffer.SetGlobalVector("_offsets", new Vector4(0, 2.0f / sizes[i].y, 0, 0));
+            _CommandBuffer.Blit(blurredID2, blurredID, _Material);
+
+            _CommandBuffer.SetGlobalTexture("_GrabBlurTexture_" + i, blurredID);
+        }
+
+        _Camera.AddCommandBuffer(CameraEvent.BeforeForwardAlpha, _CommandBuffer);
+
+        _ScreenResolution = new Vector2(Screen.width, Screen.height);
+    }
+
+    void OnPreRender()
+    {
+        if (_ScreenResolution != new Vector2(Screen.width, Screen.height))
+            Cleanup();
+
+        Initialize();
+    }
+    
+}
