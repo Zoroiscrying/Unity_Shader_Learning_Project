@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Shader Projects/CatlikeCodingLearning/Rendering/Bumpiness/Bumpiness.unity
+- path: Assets/Shader Projects/CatlikeCodingLearning/Rendering/Reflections/Reflections.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
