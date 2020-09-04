@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Shader Projects/CatlikeCodingLearning/Rendering/Reflections/Reflections.unity
+- path: Assets/Shader Projects/CatlikeCodingLearning/Rendering/ComplexMaterials/ComplexMaterials.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

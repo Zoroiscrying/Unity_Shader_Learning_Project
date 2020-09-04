@@ -2,6 +2,7 @@
 {
     Properties
     {
+        
         _MainTex ("Texture", 2D) = "white" {}
         _Tint("Tint", Color) = (1,1,1)
         //[NoScaleOffset]_HeightMap ("Heights", 2D) = "gray" {}
