@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Unlit_TransparentShader
+  m_Shader: {fileID: 4800000, guid: 8061e3e57514c7040b1a1488754c1567, type: 3}
+  m_ShaderKeywords: _RENDERING_FADE _SEMITRANSPARENT_SHADOWS
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 6b5c1bb6965e7b04c8ad6a60c996f153, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AlphaCutoff: 0.017
+    - _DstBlend: 10
+    - _SrcBlend: 5
+    - _ZWrite: 0
+    m_Colors:
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}

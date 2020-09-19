@@ -9,7 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: ComplexMaterialMat_Circuit
   m_Shader: {fileID: 4800000, guid: b404b14080a3a954f94ba65db12afeca, type: 3}
-  m_ShaderKeywords: _EMISSION_MAP _METALLIC_MAP _SMOOTHNESS_METALLIC
+  m_ShaderKeywords: _DETAIL_MASK _DETAIL_NORMAL_MAP _EMISSION_MAP _METALLIC_MAP _NORMAL_MAP
+    _OCCLUSION_MAP _SMOOTHNESS_METALLIC
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -19,13 +20,17 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _DetailMask:
+        m_Texture: {fileID: 2800000, guid: 49a06d682ac080a4b944187bed77d6c9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d45a7319f510b854a856be4addbd6516, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 98d5e757e3a04d34e87c7ee2b40107e5, type: 3}
+        m_Scale: {x: 4, y: 4}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 2800000, guid: 82234ca4c029a2d4e94d0ae1784b9293, type: 3}
@@ -40,13 +45,18 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 6cad669fb53c209489c0b1756fea3bbe, type: 3}
+        m_Texture: {fileID: 2800000, guid: e7a351f305be2d2428cd45d5a789b53b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 2800000, guid: 5844df0fe9ac6f84a84132c1796fa2e1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _DetailBumpScale: 1
+    - _DetailBumpScale: 0.5
     - _Metallic: 0.874
+    - _OcclusionStrength: 1
     - _Smoothness: 1
     m_Colors:
     - _Emission: {r: 4, g: 4, b: 4, a: 1}

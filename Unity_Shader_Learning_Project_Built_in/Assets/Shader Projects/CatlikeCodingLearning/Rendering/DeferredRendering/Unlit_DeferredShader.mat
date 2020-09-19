@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Unlit_DeferredShader
+  m_Shader: {fileID: 4800000, guid: 2086620aba4b4fa4593209c52e3b7911, type: 3}
+  m_ShaderKeywords: _DETAIL_ALBEDO_MAP _DETAIL_MASK _DETAIL_NORMAL_MAP _EMISSION_MAP
+    _METALLIC_MAP _NORMAL_MAP _OCCLUSION_MAP _SMOOTHNESS_METALLIC
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DetailMask:
+        m_Texture: {fileID: 2800000, guid: 49a06d682ac080a4b944187bed77d6c9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 2800000, guid: d45a7319f510b854a856be4addbd6516, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailTex:
+        m_Texture: {fileID: 2800000, guid: 98d5e757e3a04d34e87c7ee2b40107e5, type: 3}
+        m_Scale: {x: 3, y: 3}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 2800000, guid: 82234ca4c029a2d4e94d0ae1784b9293, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: a6345aa1642b92a4d9c887c228f2bbb5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicMap:
+        m_Texture: {fileID: 2800000, guid: 0d77527df99c25946a6776551cf84c86, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 6cad669fb53c209489c0b1756fea3bbe, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 2800000, guid: 5844df0fe9ac6f84a84132c1796fa2e1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BumpScale: 1
+    - _DetailBumpScale: 0.25
+    - _Metallic: 1
+    - _OcclusionStrength: 1
+    - _Smoothness: 1
+    m_Colors:
+    - _Emission: {r: 4, g: 4, b: 4, a: 1}
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}

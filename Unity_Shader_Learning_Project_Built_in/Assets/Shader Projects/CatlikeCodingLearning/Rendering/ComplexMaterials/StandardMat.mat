@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: StandardMat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP
-  m_LightmapFlags: 4
+  m_ShaderKeywords: _DETAIL_MULX2 _EMISSION _METALLICGLOSSMAP _NORMALMAP
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -24,19 +24,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 98d5e757e3a04d34e87c7ee2b40107e5, type: 3}
+        m_Scale: {x: 4, y: 4}
         m_Offset: {x: 0, y: 0}
     - _DetailMask:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 49a06d682ac080a4b944187bed77d6c9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d45a7319f510b854a856be4addbd6516, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 82234ca4c029a2d4e94d0ae1784b9293, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -74,4 +74,4 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 4, g: 4, b: 4, a: 1}

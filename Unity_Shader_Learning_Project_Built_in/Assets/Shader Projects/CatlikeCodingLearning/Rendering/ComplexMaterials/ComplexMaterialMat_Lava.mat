@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: ComplexMaterialMat_Lava
   m_Shader: {fileID: 4800000, guid: b404b14080a3a954f94ba65db12afeca, type: 3}
-  m_ShaderKeywords: _EMISSION_MAP _SMOOTHNESS_ALBEDO
+  m_ShaderKeywords: _EMISSION_MAP _NORMAL_MAP _SMOOTHNESS_ALBEDO
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -43,11 +47,16 @@ Material:
         m_Texture: {fileID: 2800000, guid: b2832341fd0379c4ba79d2afaff63eea, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
     - _DetailBumpScale: 1
     - _Metallic: 0
-    - _Smoothness: 1
+    - _OcclusionStrength: 1
+    - _Smoothness: 0.5
     m_Colors:
-    - _Emission: {r: 2, g: 2, b: 2, a: 1}
+    - _Emission: {r: 3.9999995, g: 3.9999995, b: 3.9999995, a: 1}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}

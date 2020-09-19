@@ -66,45 +66,6 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                //Biling-Phone based metallic and specular lighting calculation
-                
-                // sample the texture
-                //diffuse
-                //float3 albedo = tex2D(_MainTex, i.uv).rgb * _Tint.rgb;
-                //i.normal = normalize(i.normal);
-                //float3 lightDir = _WorldSpaceLightPos0.xyz;
-                //float3 lightColor = _LightColor0.rgb;
-                ////float3 diffuse = albedo * lightColor * DotClamped(lightDir, i.normal);
-                //
-                ////specular
-                ////float3 specularTint = albedo * _Metallic;
-                //float3 viewDir = normalize(_WorldSpaceCameraPos-i.worldPos);
-                //float3 halfVector = normalize(lightDir + viewDir);
-                //float3 ReflectionDir = reflect(-lightDir, i.normal);
-                ////float3 specular = _SpecularTint.rgb * lightColor * pow(DotClamped(ReflectionDir, viewDir), _Smoothness*100);
-                //
-                ////combining the calculations
-                ////albedo *= 1 - max(_SpecularTint.r, max(_SpecularTint.g, _SpecularTint.b));;
-                //
-                ////float oneMinusReflectivity;
-				////albedo = EnergyConservationBetweenDiffuseAndSpecular(
-				////	albedo, _SpecularTint.rgb, oneMinusReflectivity
-				////);
-				//
-				////float oneMinusReflectivity = 1 - _Metallic;
-				////albedo *= oneMinusReflectivity;
-                //
-                //float3 specularTint;
-                //float oneMinusReflectivity;
-                //albedo = DiffuseAndSpecularFromMetallic(
-				//	albedo, _Metallic, specularTint, oneMinusReflectivity
-				//);
-				//
-                //float3 diffuse = albedo * lightColor * DotClamped(lightDir, i.normal);
-                //float3 specular = specularTint  * lightColor * pow(DotClamped(ReflectionDir, viewDir), _Smoothness*100);
-                //return float4(diffuse + specular, 1);
-                
-                
                 //PBR Lighting Calculation
                 i.normal = normalize(i.normal);
 				float3 lightDir = _WorldSpaceLightPos0.xyz;
@@ -124,7 +85,7 @@
 				light.dir = lightDir;
 				light.ndotl = DotClamped(i.normal, lightDir);
 				UnityIndirect indirectLight;
-				indirectLight.diffuse = 0.1;
+				indirectLight.diffuse = 0;
 				indirectLight.specular = 0;
 
 				return UNITY_BRDF_PBS(

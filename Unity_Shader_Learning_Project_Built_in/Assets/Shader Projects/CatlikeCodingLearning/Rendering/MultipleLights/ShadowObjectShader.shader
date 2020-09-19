@@ -1,4 +1,4 @@
-﻿Shader "Zoroiscrying/RenderingLearning/MultipleLightsShader"
+﻿Shader "Zoroiscrying/RenderingLearning/ShadowObject"
 {
     Properties
     {
@@ -28,7 +28,7 @@
             #pragma vertex vert
             #pragma fragment frag
             
-            #include "MyLighting.cginc"
+            #include "MyLighting_simple.cginc"
             ENDCG
         }
         
@@ -57,7 +57,7 @@
 			//#pragma multi_compile DIRECTIONAL DIRECTIONAL_COOKIE POINT POINT_COOKIE SPOT
 			#pragma multi_compile_fwdadd_fullshadows
 			
-			#include "MyLighting.cginc"
+			#include "MyLighting_simple.cginc"
 
 			ENDCG
 		}
