@@ -73,7 +73,7 @@
 
             #pragma multi_compile_shadowcaster
             
-			#pragma vertex MyShadowVertexProgram
+			#pragma vertex vert
 			#pragma fragment MyShadowFragmentProgram
 
 			#include "MyShadow.cginc"

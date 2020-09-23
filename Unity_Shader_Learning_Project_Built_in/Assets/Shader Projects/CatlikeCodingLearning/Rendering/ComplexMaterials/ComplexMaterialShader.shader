@@ -3,7 +3,7 @@
     Properties
     {
         _MainTex ("Main Tex", 2D) = "white" {}
-        _Tint("Tint", Color) = (1,1,1)
+        _Color("Tint", Color) = (1,1,1)
         //[NoScaleOffset]_HeightMap ("Heights", 2D) = "gray" {}
         [NoScaleOffset] _NormalMap ("Normals", 2D) = "bump" {}
         _BumpScale ("Bump Scale", Float) = 1
@@ -110,7 +110,7 @@
 
             #pragma multi_compile_shadowcaster
             
-			#pragma vertex MyShadowVertexProgram
+			#pragma vertex vert
 			#pragma fragment MyShadowFragmentProgram
 
 			#include "../MultipleLights/MyShadow.cginc"

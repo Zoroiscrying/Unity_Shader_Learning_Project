@@ -87,7 +87,7 @@
             #pragma shader_feature _ _RENDERING_CUTOUT _RENDERING_FADE _RENDERING_TRANSPARENT
 			#pragma shader_feature _SMOOTHNESS_ALBEDO
             
-			#pragma vertex MyShadowVertexProgram
+			#pragma vertex vert
 			#pragma fragment MyShadowFragmentProgram
 
 			#include "../MultipleLights/MyShadow.cginc"

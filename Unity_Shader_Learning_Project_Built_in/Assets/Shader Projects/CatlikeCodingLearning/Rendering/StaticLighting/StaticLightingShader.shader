@@ -154,7 +154,7 @@
             #pragma multi_compile_instancing
             #pragma instancing_options lodfade
             
-			#pragma vertex MyShadowVertexProgram
+			#pragma vertex vert
 			#pragma fragment MyShadowFragmentProgram
 
             #pragma multi_compile _ LOD_FADE_CROSSFADE

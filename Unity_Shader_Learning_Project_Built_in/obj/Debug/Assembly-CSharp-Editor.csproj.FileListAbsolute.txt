@@ -1,7 +1,6 @@
 D:\CodingProjects\Unity\Unity_Shader_Learning_Project\Unity_Shader_Learning_Project_Built_in\Temp\bin\Debug\Assembly-CSharp-Editor.dll
 D:\CodingProjects\Unity\Unity_Shader_Learning_Project\Unity_Shader_Learning_Project_Built_in\Temp\bin\Debug\Assembly-CSharp-Editor.pdb
 D:\CodingProjects\Unity\Unity_Shader_Learning_Project\Unity_Shader_Learning_Project_Built_in\Temp\bin\Debug\Boo.Lang.dll
-D:\CodingProjects\Unity\Unity_Shader_Learning_Project\Unity_Shader_Learning_Project_Built_in\Temp\bin\Debug\JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll
 D:\CodingProjects\Unity\Unity_Shader_Learning_Project\Unity_Shader_Learning_Project_Built_in\Temp\bin\Debug\Microsoft.CSharp.dll
 D:\CodingProjects\Unity\Unity_Shader_Learning_Project\Unity_Shader_Learning_Project_Built_in\Temp\bin\Debug\Microsoft.Win32.Primitives.dll
 D:\CodingProjects\Unity\Unity_Shader_Learning_Project\Unity_Shader_Learning_Project_Built_in\Temp\bin\Debug\mscorlib.dll

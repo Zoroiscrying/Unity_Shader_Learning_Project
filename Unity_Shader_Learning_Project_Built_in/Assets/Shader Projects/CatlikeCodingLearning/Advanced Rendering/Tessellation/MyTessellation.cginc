@@ -8,6 +8,7 @@
 //with the SV_TessFactor semantic. 
 //The inside factor uses the SV_InsideTessFactor semantic.
 
+
 struct TessellationFactors {
     float edge[3] : SV_TessFactor;
     float inside : SV_InsideTessFactor;
@@ -16,10 +17,16 @@ struct TessellationFactors {
 struct TessellationControlPoint {
 	float4 vertex : INTERNALTESSPOS;
 	float3 normal : NORMAL;
-	float4 tangent : TANGENT;
+	#if TESSELLATION_TANGENT
+		float4 tangent : TANGENT;
+	#endif
 	float2 uv : TEXCOORD0;
-	float2 uv1 : TEXCOORD1;
-	float2 uv2 : TEXCOORD2;
+	#if TESSELLATION_UV1
+		float2 uv1 : TEXCOORD1;
+	#endif
+	#if TESSELLATION_UV2
+		float2 uv2 : TEXCOORD2;
+	#endif
 };
 
 float _TessellationUniform;
@@ -47,6 +54,23 @@ float TessellationEdgeFactor (
 	#endif
 }
 
+bool TriangleIsBelowClipPlane (float3 p0, float3 p1, float3 p2, int planeIndex, float bias) {
+    //float4 plane = float4(1, 0, 0, 0);
+	//float4 plane = unity_CameraWorldClipPlanes[0];
+	float4 plane = unity_CameraWorldClipPlanes[planeIndex];
+	return
+		dot(float4(p0, 1), plane) < bias &&
+		dot(float4(p1, 1), plane) < bias &&
+		dot(float4(p2, 1), plane) < bias ;
+}
+
+bool TriangleIsCulled (float3 p0, float3 p1, float3 p2, float bias) {
+	return TriangleIsBelowClipPlane(p0, p1, p2, 0, bias) ||
+		TriangleIsBelowClipPlane(p0, p1, p2, 1, bias) ||
+		TriangleIsBelowClipPlane(p0, p1, p2, 2, bias) ||
+		TriangleIsBelowClipPlane(p0, p1, p2, 3, bias);
+}
+
 TessellationFactors MyPatchConstantFunction (InputPatch<TessellationControlPoint, 3> patch) {
 	TessellationFactors f;
     //f.edge[0] = TessellationEdgeFactor(patch[1], patch[2]);
@@ -55,7 +79,14 @@ TessellationFactors MyPatchConstantFunction (InputPatch<TessellationControlPoint
 	float3 p0 = mul(unity_ObjectToWorld, patch[0].vertex).xyz;
 	float3 p1 = mul(unity_ObjectToWorld, patch[1].vertex).xyz;
 	float3 p2 = mul(unity_ObjectToWorld, patch[2].vertex).xyz;
-	
+    float bias = 0;
+    #if VERTEX_DISPLACEMENT
+		bias = -0.5 * _DisplacementStrength;
+	#endif
+    if (TriangleIsCulled(p0, p1, p2, bias)) {
+		f.edge[0] = f.edge[1] = f.edge[2] = f.inside = 0;
+	}
+	else {
     f.edge[0] = TessellationEdgeFactor(p1, p2);
     f.edge[1] = TessellationEdgeFactor(p2, p0);
     f.edge[2] = TessellationEdgeFactor(p0, p1);
@@ -63,6 +94,7 @@ TessellationFactors MyPatchConstantFunction (InputPatch<TessellationControlPoint
 		(TessellationEdgeFactor(p1, p2) +
 		TessellationEdgeFactor(p2, p0) +
 		TessellationEdgeFactor(p0, p1)) * (1 / 3.0);
+    }
 	return f;
 }
 
@@ -86,10 +118,16 @@ TessellationControlPoint  MyTessellationVertexProgram (appdata v) {
     TessellationControlPoint p;
 	p.vertex = v.vertex;
 	p.normal = v.normal;
-	p.tangent = v.tangent;
+	#if TESSELLATION_TANGENT
+		p.tangent = v.tangent;
+	#endif
 	p.uv = v.uv;
-	p.uv1 = v.uv1;
-	p.uv2 = v.uv2;
+	#if TESSELLATION_UV1
+		p.uv1 = v.uv1;
+	#endif
+	#if TESSELLATION_UV2
+		p.uv2 = v.uv2;
+	#endif
 	return p;
 }
 
@@ -107,10 +145,16 @@ v2f MyDomainProgram (
 
 	MY_DOMAIN_PROGRAM_INTERPOLATE(vertex)
     MY_DOMAIN_PROGRAM_INTERPOLATE(normal)
-	MY_DOMAIN_PROGRAM_INTERPOLATE(tangent)
+	#if TESSELLATION_TANGENT
+		MY_DOMAIN_PROGRAM_INTERPOLATE(tangent)
+	#endif
 	MY_DOMAIN_PROGRAM_INTERPOLATE(uv)
-	MY_DOMAIN_PROGRAM_INTERPOLATE(uv1)
-	MY_DOMAIN_PROGRAM_INTERPOLATE(uv2)
+	#if TESSELLATION_UV1
+		MY_DOMAIN_PROGRAM_INTERPOLATE(uv1)
+	#endif
+	#if TESSELLATION_UV2
+		MY_DOMAIN_PROGRAM_INTERPOLATE(uv2)
+	#endif
 	
 	return vert(data);
 }

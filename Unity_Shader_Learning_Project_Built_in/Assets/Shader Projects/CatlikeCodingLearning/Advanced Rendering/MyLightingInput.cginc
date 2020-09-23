@@ -6,6 +6,18 @@
 #include "UnityStandardBRDF.cginc"
 #include "UnityStandardUtils.cginc"
 
+#define TESSELLATION_TANGENT 1
+#define TESSELLATION_UV1 1
+#define TESSELLATION_UV2 1
+
+
+#if defined(_PARALLAX_MAP) && defined(VERTEX_DISPLACEMENT_INSTEAD_OF_PARALLAX)
+	#undef _PARALLAX_MAP
+	#define VERTEX_DISPLACEMENT 1
+    #define _DisplacementMap _ParallaxMap
+	#define _DisplacementStrength _ParallaxStrength
+#endif
+
 #if defined(FOG_LINEAR) || defined(FOG_EXP) || defined(FOG_EXP2)
     #if !defined(FOG_DISTANCE)
         #define FOG_DEPTH 1
@@ -24,6 +36,8 @@
         #define SUBTRACTIVE_LIGHTING 1
     #endif
 #endif
+
+
 
 //used for deferred shading
 struct FragmentOutput_Deferred {

@@ -25,10 +25,6 @@ float3 GetAlbedoWithWireframe (v2f i) {
 
 #define ALBEDO_FUNCTION GetAlbedoWithWireframe
 
-#if !defined(ALBEDO_FUNCTION)
-	#define ALBEDO_FUNCTION GetAlbedo
-#endif
-
 #include "../MyLighting_advanced.cginc"
 
 

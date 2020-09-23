@@ -9,6 +9,10 @@
 
 #include "MyLightingInput.cginc"
 
+#if !defined(ALBEDO_FUNCTION)
+	#define ALBEDO_FUNCTION GetAlbedo
+#endif
+
 float4 ApplyFog (float4 color, v2f i) {
     // x = density / sqrt(ln(2)), useful for Exp2 mode
     // y = density / ln(2), useful for Exp mode
@@ -66,6 +70,16 @@ v2f vert (appdata v)
     UNITY_INITIALIZE_OUTPUT(v2f, o);
     UNITY_SETUP_INSTANCE_ID(v);
     UNITY_TRANSFER_INSTANCE_ID(v, o);
+    o.uv.xy = TRANSFORM_TEX(v.uv, _MainTex);
+    o.uv.zw = TRANSFORM_TEX(v.uv, _DetailTex);
+    
+    #if VERTEX_DISPLACEMENT
+		float displacement = tex2Dlod(_DisplacementMap, float4(o.uv.xy, 0, 0)).g;
+	    displacement = (displacement - 0.5) * _DisplacementStrength;
+	    //v.vertex.y += displacement;
+	    v.vertex.xyz += v.normal * displacement;
+	#endif
+    
     o.pos = UnityObjectToClipPos(v.vertex);
     //o.tangent = float4(UnityObjectToWorldDir(v.tangent.xyz), v.tangent.w);
     o.normal = UnityObjectToWorldNormal(v.normal);
@@ -81,9 +95,7 @@ v2f vert (appdata v)
         o.tangent = UnityObjectToWorldDir(v.tangent.xyz);
         o.binormal = CreateBinormal(o.normal, o.tangent, v.tangent.w);
     #endif
-    
-    o.uv.xy = TRANSFORM_TEX(v.uv, _MainTex);
-    o.uv.zw = TRANSFORM_TEX(v.uv, _DetailTex);
+   
     
     #if defined(LIGHTMAP_ON) || ADDITIONAL_MASKED_DIRECTIONAL_SHADOWS
         o.lightmapUV = v.uv1 * unity_LightmapST.xy + unity_LightmapST.zw;
